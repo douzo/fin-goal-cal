@@ -5,6 +5,9 @@
 .display-flex {
   display: flex;
 }
+.background-color-black {
+  background-color: black;
+}
 .align-items-center {
   align-items: center;
 }
@@ -47,7 +50,9 @@ body {
   font-family: "Arial", sans-serif;
   margin: 0;
 }
-
+.justify-content-flex-end {
+  justify-content: flex-end;
+}
 div {
   text-align: center;
 }

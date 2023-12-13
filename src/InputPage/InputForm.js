@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./InputForm.css";
 import { calculateFutureValue, calculateMonthlySavings } from "../Utils/Calculation.js";
 import "./ToolTip.css"
+import { Tooltip as ReactTooltip } from 'react-tooltip'
 
 
 function InputForm() {
@@ -168,14 +169,6 @@ function InputForm() {
     });
   };
 
-  const inflationValidation = (v) => {
-    if (v > 10 || v < 7) alert("the inflation rate occurs between 7 and 10");
-  };
-
-  const numValidation = (n) => {
-    if (n < 10 || n > 100) alert("Kindly enter the correct details in the input field");
-  };
-
   const handleToggleTopFields = () => {
     setIsTopFieldsVisible(!isTopFieldsVisible);
   }
@@ -183,8 +176,34 @@ function InputForm() {
   const handleToggleGoalFields = () => {
     setIsGoalFieldsVisible(!isGoalFieldsVisible);
   }
+  const handleSave = () => {
+    // Save topFields and goals object to local storage
+    localStorage.setItem("topFields", JSON.stringify(topFields));
+    localStorage.setItem("goals", JSON.stringify(goals));
+  };
+  const handleLoad = () => {
+    // Load topFields and goals object from local storage
+    const topFields = JSON.parse(localStorage.getItem("topFields"));
+    const goals = JSON.parse(localStorage.getItem("goals"));
+    setTopFields(topFields);
+    setGoals(goals);
+  }
   return (
-    <div className="container display-inline-flex flex-direction-column">
+    <><div className="container display-inline-flex flex-direction-column">
+      {/** create a save button in the top right of this div and on click of save, save the topFields and goals object to local storage**/}
+      {/** create a load button in the top right of this div and on click of load, load the topFields and goals object from local storage**/}
+      {/** create a reset button in the top right of this div and on click of reset, reset the topFields and goals object to default values**/}
+      {/* Save button */}
+      <div className="display-flex justify-content-flex-end">
+
+        <button data-tooltip-id="save-tooltip" className="background-color-black margin-right-1rem" onClick={() => handleSave()}>
+          Save
+        </button>
+        <button data-tooltip-id="load-tooltip" className="background-color-black" onClick={() => handleLoad()}>
+          Load
+        </button>
+      </div>
+
       <section className="general-info">
         <div className="display-flex">
           <h2 className="goals-heading">General And Retirement Information</h2>
@@ -195,9 +214,9 @@ function InputForm() {
             style={{ cursor: "pointer" }}
           >
             {isTopFieldsVisible ? (
-              <span >&#9660;</span>
+              <span>&#9660;</span>
             ) : (
-              <span >&#9658;</span>
+              <span>&#9658;</span>
             )}
           </span>
         </div>
@@ -217,9 +236,7 @@ function InputForm() {
                     value={topFields.currentMonthlyExpenses}
                     onChange={(event) => {
                       handleTopFieldsChange(event);
-                    }
-                    }
-                  />
+                    } } />
                 </div>
               </div>
               <div className="top-field">
@@ -232,11 +249,9 @@ function InputForm() {
                     name="inflation"
                     value={topFields.inflation}
                     placeholder="7-10%"
-                    onBlur={(event) => inflationValidation(event.target.value)}
                     onChange={(event) => {
                       handleTopFieldsChange(event);
-                    }}
-                  />
+                    } } />
                 </div>
               </div>
               <div className="top-field">
@@ -249,8 +264,7 @@ function InputForm() {
                   value={topFields.age}
                   onChange={(event) => {
                     handleTopFieldsChange(event);
-                  }}
-                />
+                  } } />
                 <div className="tooltip">&#9432;
                   <span className="tool-tip-text">info about</span>
                 </div>
@@ -264,11 +278,9 @@ function InputForm() {
                   value={topFields.retirementAge}
                   placeholder="50?"
                   tooltipText="enter your retirement"
-                  onBlur={(event) => numValidation(event.target.value)}
                   onChange={(event) => {
                     handleTopFieldsChange(event);
-                  }}
-                />
+                  } } />
                 <div className="tooltip">&#9432;
                   <span className="tool-tip-text">info about</span>
                 </div>
@@ -281,11 +293,9 @@ function InputForm() {
                   placeholder="80?"
                   className="align-right"
                   value={topFields.lifeExpectancy}
-                  onBlur={(event) => numValidation(event.target.value)}
                   onChange={(event) => {
                     handleTopFieldsChange(event);
-                  }}
-                />
+                  } } />
                 <div className="tooltip">&#9432;
                   <span className="tool-tip-text">info about</span>
                 </div>
@@ -298,11 +308,9 @@ function InputForm() {
                   className="align-right"
                   value={topFields.retiredExpenses}
                   placeholder="70-80%"
-                  onBlur={(event) => numValidation(event.target.value)}
                   onChange={(event) => {
                     handleTopFieldsChange(event);
-                  }}
-                />
+                  } } />
                 <div className="tooltip">&#9432;
                   <span className="tool-tip-text">info about</span>
                 </div>
@@ -319,8 +327,7 @@ function InputForm() {
                   value={topFields.annualIncome}
                   onChange={(event) => {
                     handleTopFieldsChange(event);
-                  }}
-                />
+                  } } />
                 <div className="tooltip">&#9432;
                   <span className="tool-tip-text">Input total income you make from all sources in a year</span>
                 </div>
@@ -333,11 +340,9 @@ function InputForm() {
                   name="annualIncrement"
                   placeholder="10-15%"
                   value={topFields.annualIncrement}
-                  onBlur={(event) => numValidation(event.target.value)}
                   onChange={(event) => {
                     handleTopFieldsChange(event);
-                  }}
-                />
+                  } } />
                 <div className="tooltip">&#9432;
                   <span className="tool-tip-text">info about</span>
                 </div>
@@ -353,9 +358,8 @@ function InputForm() {
                   value={topFields.yearsForRetirement}
                   onChange={(event) => {
                     handleTopFieldsChange(event);
-                  }}
-                  readOnly
-                />
+                  } }
+                  readOnly />
               </div>
               <div className="right-field">
                 <label>Number of years in retirement:</label>
@@ -365,9 +369,8 @@ function InputForm() {
                   value={topFields.yearsInRetirement}
                   onChange={(event) => {
                     handleTopFieldsChange(event);
-                  }}
-                  readOnly
-                />
+                  } }
+                  readOnly />
               </div>
               <div className="right-field">
                 <label>Value of monthly expenses post retirement:</label>
@@ -377,9 +380,8 @@ function InputForm() {
                   value={topFields.monthlyExpensesPostRetirement}
                   onChange={(event) => {
                     handleTopFieldsChange(event);
-                  }}
-                  readOnly
-                />
+                  } }
+                  readOnly />
               </div>
             </div>
           </div>
@@ -394,9 +396,9 @@ function InputForm() {
             style={{ cursor: "pointer" }}
           >
             {isGoalFieldsVisible ? (
-              <span >&#9660;</span>
+              <span>&#9660;</span>
             ) : (
-              <span >&#9658;</span>
+              <span>&#9658;</span>
             )}
           </span>
         </div>
@@ -421,8 +423,7 @@ function InputForm() {
                   name="goal"
                   value={goal.goal}
                   onChange={(event) => handleInputChange(event, index)}
-                  placeholder="Goal"
-                />
+                  placeholder="Goal" />
                 <div>
                   <div className="icon-wrap">
                     <span className="icon-code">&#8377;</span>
@@ -432,23 +433,20 @@ function InputForm() {
                     type="number"
                     name="cost"
                     value={goal.cost}
-                    onChange={(event) => handleInputChange(event, index)}
-                  />
+                    onChange={(event) => handleInputChange(event, index)} />
                 </div>
                 <input
                   type="number"
                   name="goalInflation"
                   value={goal.goalInflation}
                   onChange={(event) => handleInputChange(event, index)}
-                  className="small-input align-right"
-                />
+                  className="small-input align-right" />
                 <input
                   type="number"
                   name="horizon"
                   value={goal.horizon}
                   onChange={(event) => handleInputChange(event, index)}
-                  className="small-input align-right"
-                />
+                  className="small-input align-right" />
                 <select
                   name="category"
                   value={goal.category}
@@ -472,8 +470,7 @@ function InputForm() {
                     name="costAtTimeOfGoal"
                     value={goal.costAtTimeOfGoal}
                     onChange={(event) => handleInputChange(event, index)}
-                    readOnly
-                  />
+                    readOnly />
                 </div>
                 <div>
                   <div className="icon-wrap">
@@ -485,16 +482,14 @@ function InputForm() {
                     name="alreadyInvestedAmount"
                     value={goal.alreadyInvestedAmount}
                     onChange={(event) => handleInputChange(event, index)}
-                    placeholder="Already invested amount"
-                  />
+                    placeholder="Already invested amount" />
                 </div>
                 <input
                   type="number"
                   name="alreadyInvestedAmountReturnRate"
                   value={goal.alreadyInvestedAmountReturnRate}
                   onChange={(event) => handleInputChange(event, index)}
-                  className="small-input align-right"
-                />
+                  className="small-input align-right" />
 
                 <div>
                   <div className="icon-wrap">
@@ -505,16 +500,14 @@ function InputForm() {
                     type="number"
                     name="toBeInvestedAmount"
                     value={goal.toBeInvestedAmount}
-                    readOnly
-                  />
+                    readOnly />
                 </div>
                 <input
                   type="number"
                   name="toBeInvestedAmountReturnRate"
                   value={goal.toBeInvestedAmountReturnRate}
                   className="small-input align-right"
-                  readOnly
-                />
+                  readOnly />
                 <button
                   type="button"
                   onClick={() => handleRemoveGoal(index)}
@@ -549,8 +542,7 @@ function InputForm() {
                   name="goal"
                   value={goalSummary.goal}
                   readOnly
-                  placeholder="Summary"
-                />
+                  placeholder="Summary" />
                 <div>
                   <div className="icon-wrap">
                     <span className="icon-code">&#8377;</span>
@@ -560,23 +552,20 @@ function InputForm() {
                     type="number"
                     name="cost"
                     value={goalSummary.cost}
-                    readOnly
-                  />
+                    readOnly />
                 </div>
                 <input
                   type="number"
                   name="goalInflation"
                   value={goalSummary.goalInflation}
                   readOnly
-                  className="small-input align-right"
-                />
+                  className="small-input align-right" />
                 <input
                   type="number"
                   name="horizon"
                   value={goalSummary.horizon}
                   readOnly
-                  className="small-input align-right"
-                />
+                  className="small-input align-right" />
                 <select
                   name="category"
                   value={goalSummary.category}
@@ -593,8 +582,7 @@ function InputForm() {
                     type="number"
                     name="costAtTimeOfGoal"
                     value={goalSummary.costAtTimeOfGoal}
-                    readOnly
-                  />
+                    readOnly />
                 </div>
                 <div>
                   <div className="icon-wrap">
@@ -605,16 +593,14 @@ function InputForm() {
                     type="number"
                     name="alreadyInvestedAmount"
                     value={goalSummary.alreadyInvestedAmount}
-                    readOnly
-                  />
+                    readOnly />
                 </div>
                 <input
                   type="number"
                   name="alreadyInvestedAmountReturnRate"
                   value={goalSummary.alreadyInvestedAmountReturnRate}
                   readOnly
-                  className="small-input align-right"
-                />
+                  className="small-input align-right" />
 
                 <div>
                   <div className="icon-wrap">
@@ -625,16 +611,14 @@ function InputForm() {
                     type="number"
                     name="toBeInvestedAmount"
                     value={goalSummary.toBeInvestedAmount}
-                    readOnly
-                  />
+                    readOnly />
                 </div>
                 <input
                   type="number"
                   name="toBeInvestedAmountReturnRate"
                   value={goalSummary.toBeInvestedAmountReturnRate}
                   className="small-input align-right"
-                  readOnly
-                />
+                  readOnly />
               </div>
 
             </div>
@@ -642,6 +626,15 @@ function InputForm() {
         )}
       </div>
     </div>
+      <ReactTooltip
+        id="save-tooltip"
+        place="bottom"
+        content="Don't worry, We don't save your data with us, we just save it in your local." />
+      <ReactTooltip
+        id="load-tooltip"
+        place="bottom"
+        content="Loads data from your local" />
+    </>
   );
 }
 
