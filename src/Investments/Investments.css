@@ -1,0 +1,18 @@
+/* Add this CSS to your component or a separate stylesheet */
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Adjust the number of columns as needed */
+  gap: 15px; /* Adjust the gap between items */
+}
+
+label, input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Optional: Style for the Future Gold Rate paragraph */
+p {
+  grid-column: span 2; /* Full width for the paragraph */
+  margin-top: 15px;
+}
