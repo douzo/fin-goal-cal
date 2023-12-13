@@ -184,7 +184,7 @@ function InputForm() {
     setIsGoalFieldsVisible(!isGoalFieldsVisible);
   }
   return (
-    <div className="container display-flex flex-direction-column">
+    <div className="container display-inline-flex flex-direction-column">
       <section className="general-info">
         <div className="display-flex">
           <h2 className="goals-heading">General And Retirement Information</h2>
@@ -403,16 +403,16 @@ function InputForm() {
         {isGoalFieldsVisible && (
           <div className="goals-list">
             <div className="goal-row heading">
-              <label>Goal Purpose</label>
-              <label>Cost (today)</label>
-              <label className="small-input">Goal Inflation in %</label>
-              <label className="small-input">Horizon (in years)</label>
+              <label>What are you saving for?</label>
+              <label>What is the goal's todays cost? (in &#8377;)</label>
+              <label className="small-input">Estimated Annual Inflation Rate for this goal? (in %)</label>
+              <label className="small-input">When do you want to reach your goal? (in years)</label>
               <label>Category (select)</label>
               <label>Cost at time of Goal</label>
-              <label>Already Invested Amount</label>
+              <label>How much you have saved already? (in &#8377;)</label>
               <label className="small-input">Already Invested Return Rate</label>
-              <label className="small-input">To Be Invested Amount</label>
-              <label className="small-input">To Be Invested Return Rate</label>
+              <label className="small-input">Save at-least this amount monthly (in &#8377;)</label>
+              <label className="small-input">Start saving in this return rate</label>
             </div>
             {goals.map((goal, index) => (
               <div key={index} className="goal-row">
