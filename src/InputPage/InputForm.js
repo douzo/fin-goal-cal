@@ -265,9 +265,6 @@ function InputForm() {
                   onChange={(event) => {
                     handleTopFieldsChange(event);
                   } } />
-                <div className="tooltip">&#9432;
-                  <span className="tool-tip-text">info about</span>
-                </div>
               </div>
               <div className="top-field">
                 <label>Age of retirement:</label>
@@ -277,13 +274,9 @@ function InputForm() {
                   name="retirementAge"
                   value={topFields.retirementAge}
                   placeholder="50?"
-                  tooltipText="enter your retirement"
                   onChange={(event) => {
                     handleTopFieldsChange(event);
                   } } />
-                <div className="tooltip">&#9432;
-                  <span className="tool-tip-text">info about</span>
-                </div>
               </div>
               <div className="top-field">
                 <label>Life Expectancy:</label>
@@ -296,9 +289,6 @@ function InputForm() {
                   onChange={(event) => {
                     handleTopFieldsChange(event);
                   } } />
-                <div className="tooltip">&#9432;
-                  <span className="tool-tip-text">info about</span>
-                </div>
               </div>
               <div className="top-field">
                 <label>% expenses after retirement:</label>
@@ -311,9 +301,6 @@ function InputForm() {
                   onChange={(event) => {
                     handleTopFieldsChange(event);
                   } } />
-                <div className="tooltip">&#9432;
-                  <span className="tool-tip-text">info about</span>
-                </div>
               </div>
               <div className="top-field">
                 <label>Annual Income:</label>
@@ -328,9 +315,6 @@ function InputForm() {
                   onChange={(event) => {
                     handleTopFieldsChange(event);
                   } } />
-                <div className="tooltip">&#9432;
-                  <span className="tool-tip-text">Input total income you make from all sources in a year</span>
-                </div>
               </div>
               <div className="top-field">
                 <label>% Annual Increment:</label>
@@ -343,9 +327,6 @@ function InputForm() {
                   onChange={(event) => {
                     handleTopFieldsChange(event);
                   } } />
-                <div className="tooltip">&#9432;
-                  <span className="tool-tip-text">info about</span>
-                </div>
               </div>
             </div>
 
