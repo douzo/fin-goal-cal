@@ -8,8 +8,7 @@ ul {
   list-style-type: none; /* Remove default list styling */
   margin: 0;
   padding: 0;
- display: flex; /* Display list items in a row */
- justify-content: center;
+  display: flex; /* Display list items in a row */
 }
 
 li {
